@@ -1,0 +1,150 @@
+@import '../components/DataDisplay.css';
+
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: calc(100vh - 8rem); /* viewport minus app margins */
+}
+
+.chat-page-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.chat-page-header h2 {
+  margin-bottom: 0.25rem;
+}
+
+.back-btn {
+  padding: 0.5rem 1rem;
+}
+
+.chat-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  height: 100%;
+}
+
+@media (min-width: 992px) {
+  .chat-layout {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-wrapper {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .sidebar-wrapper {
+    display: block;
+  }
+}
+
+.side-panel {
+  height: fit-content;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.loading-state, .error-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+
+.menu-image-container {
+  width: 100%;
+  height: 180px;
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+}
+
+.menu-image-container:hover {
+  border-color: var(--accent-primary);
+}
+
+.menu-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.zoom-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.menu-image-container:hover .zoom-hint {
+  opacity: 1;
+}
+
+/* Lightbox styles */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.close-lightbox {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  background: transparent;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.close-lightbox:hover {
+  color: var(--error);
+  transform: none;
+}

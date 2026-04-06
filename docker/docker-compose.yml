@@ -1,0 +1,42 @@
+name: menu-extractor
+
+services:
+
+  postgres:
+    image: pgvector/pgvector:pg18-trixie
+    container_name: menu-extractor-postgres
+    ports:
+      - "5423:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+    env_file:
+      - ./env/.env.postgres
+    networks:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U menu_user -d menu_extractor_sessions"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  qdrant:
+    image: qdrant/qdrant:v1.17.0
+    container_name: menu-extractor-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - backend
+    restart: unless-stopped
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  pgdata:
+  qdrant_data:
